@@ -108,6 +108,28 @@ playbook:
         enabled: false
       skip: false
       retry: {}
+    - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/create-rtr-session:6.6.0
+      id: create_rtr_session
+      env:
+        ACCESS_TOKEN: ""
+        DEVICE_ID: ""
+      envFrom:
+        integrationRef: torqlab_cs_depreciated
+      uuid: bbd9e50a-42a4-43ec-93e5-8f46ed2a3cfe
+      pretty_name: Create RTR Session
+      options:
+        executor:
+          name: ""
+          env: {}
+          sync: true
+          disable: false
+      manifestId: 2dd5af50-6285-8ca3-842b-20a6e9cf3756
+      isPrivate: false
+      isPrivateUrl: true
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
     - exit:
         success: "true"
         pretty_name: Exit
