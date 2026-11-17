@@ -130,6 +130,25 @@ playbook:
         enabled: false
       skip: false
       retry: {}
+    - name: us-docker.pkg.dev/stackpulse/public/torq-ai/ai-operator:3.0.22
+      id: run_task_with_ai
+      env:
+        MODEL: gpt-6-luna
+        PROMPT: Hello world.
+      uuid: 7ae302ff-7113-4b97-a1b9-95ca14c5afb3
+      pretty_name: Run Task with AI
+      options:
+        executor:
+          name: ""
+          env: {}
+          sync: false
+          disable: false
+      manifestId: ed2226a7-bf98-8e0c-9d68-9cf5e21b98f7
+      isPrivate: false
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
     - exit:
         success: "true"
         pretty_name: Exit
