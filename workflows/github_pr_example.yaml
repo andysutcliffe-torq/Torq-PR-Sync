@@ -129,6 +129,48 @@ playbook:
         enabled: false
       skip: false
       retry: {}
+    - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/delete-indicator:5.8.0
+      id: delete_indicator_1
+      env:
+        ACCESS_TOKEN: ""
+        INDICATOR_ID: ""
+      envFrom:
+        integrationRef: torqlab_cs_depreciated
+      uuid: 1298952a-0f40-4228-9f11-491a26e3b2a0
+      pretty_name: Delete Indicator 1
+      options:
+        executor:
+          name: http_request_v_4_34_0
+          env: {}
+          sync: true
+          disable: false
+      manifestId: c155f7be-9120-8ca9-ab42-533f7a7ff6b8
+      isPrivate: false
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
+    - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/download-file-from-quarantine:1.7.0
+      id: download_file_from_quarantine
+      env:
+        SHA256: ""
+      envFrom:
+        integrationRef: ""
+      uuid: cdc13072-f38c-4665-9fa7-e4b2fb04ba30
+      pretty_name: Download File From Quarantine
+      options:
+        executor:
+          name: ""
+          env: {}
+          sync: true
+          disable: false
+      manifestId: 0f05d78b-b487-8235-b73d-230a724db46c
+      isPrivate: false
+      isPrivateUrl: true
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
     - exit:
         success: "true"
         pretty_name: Exit
