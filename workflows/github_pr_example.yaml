@@ -68,11 +68,50 @@ playbook:
               pretty_name: If
         uuid: f8831595-4879-4caf-9684-8fb665fbac8e
         pretty_name: Loop Alerts
+    - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/create-session:5.11.1
+      id: create_session
+      envFrom:
+        integrationRef: torqlab_cs_depreciated
+      uuid: 5a268d7e-a3c5-48e0-89e9-6fbba4456178
+      pretty_name: Create Session
+      options:
+        executor:
+          name: ""
+          env: {}
+          sync: true
+          disable: false
+      manifestId: 44c4309d-caf0-862c-bf9e-dcc26fc7c309
+      isPrivate: false
+      isPrivateUrl: true
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
+    - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/delete-indicator:5.8.0
+      id: delete_indicator
+      env:
+        ACCESS_TOKEN: ""
+        INDICATOR_ID: ""
+      envFrom:
+        integrationRef: torqlab_cs_depreciated
+      uuid: e3c69624-0286-47b0-a461-35487d6d7222
+      pretty_name: Delete Indicator
+      options:
+        executor:
+          name: http_request_v_4_34_0
+          env: {}
+          sync: true
+          disable: false
+      manifestId: c155f7be-9120-8ca9-ab42-533f7a7ff6b8
+      isPrivate: false
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
     - exit:
         success: "true"
         pretty_name: Exit
         output: '{}'
         uuid: c2c9e06a-c438-44a6-9f8f-916568a33096
-        use_schema: true
   output_schema: '{}'
 root: true
