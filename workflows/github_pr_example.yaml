@@ -1,0 +1,78 @@
+!!ExportedWorkflow
+apiVersion: torq.io/v2alpha
+kind: Workflow
+id: 21d43f4e-01fa-4819-aa16-d103b634e55c
+name: Github PR Example
+trigger:
+  onDemandTrigger:
+    parameterList:
+      parameters: []
+playbook:
+  steps:
+    - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/list-alerts:1.9.0
+      id: list_alerts
+      envFrom:
+        integrationRef: ""
+      uuid: 79b46065-427f-4df9-af58-17413e4e79dd
+      pretty_name: List Alerts
+      options:
+        executor:
+          name: ""
+          env: {}
+          sync: true
+          disable: false
+      documentationUrl: https://assets.falcon.us-2.crowdstrike.com/support/api/swagger-us2.html#/Alerts/GetQueriesAlertsV2
+      manifestId: 58044351-d96f-807e-a6f2-7abc69c9af43
+      isPrivate: false
+      isPrivateUrl: true
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
+    - loop:
+        in: ""
+        key: loop_key
+        value: loop_value
+        steps:
+          - if:
+              conditions:
+                or:
+                  - and:
+                      - lvalue: ""
+                        operator: EQUALS
+                        rvalue: ""
+              then:
+                - name: us-docker.pkg.dev/stackpulse/public/torq_cases/create-a-case:6.15.1
+                  id: create_a_case
+                  env:
+                    CASE_SEVERITY: Low
+                    CASE_SLA: 24h
+                    CASE_TITLE: ""
+                    TORQ_EVENT_ID: '{{ $.metadata.alert_id }}'
+                  uuid: 681c73b4-1d16-4f2f-a175-bcaeebe13414
+                  pretty_name: Create a case
+                  options:
+                    executor:
+                      name: ""
+                      env: {}
+                      sync: false
+                      disable: false
+                  manifestId: 44765b71-6236-8019-938b-5a99c34bb178
+                  isPrivate: false
+                  mock_output:
+                    enabled: false
+                  skip: false
+                  retry: {}
+              else: []
+              uuid: 8c2f7c43-e8eb-4cb1-b63e-35f18b8ada5d
+              pretty_name: If
+        uuid: f8831595-4879-4caf-9684-8fb665fbac8e
+        pretty_name: Loop Alerts
+    - exit:
+        success: "true"
+        pretty_name: Exit
+        output: '{}'
+        uuid: c2c9e06a-c438-44a6-9f8f-916568a33096
+        use_schema: true
+  output_schema: '{}'
+root: true
