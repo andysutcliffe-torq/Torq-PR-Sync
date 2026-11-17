@@ -66,6 +66,49 @@ playbook:
               else: []
               uuid: 8c2f7c43-e8eb-4cb1-b63e-35f18b8ada5d
               pretty_name: If
+          - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/add-comment-to-message-center-case:1.7.0
+            id: add_comment_to_message_center_case
+            env:
+              ACCESS_TOKEN: ""
+              CASE_ID: ""
+              COMMENT: ""
+              USER_UUID: ""
+            envFrom:
+              integrationRef: torqlab_cs_depreciated
+            uuid: d02c5111-f1f7-4207-ab02-f03ffa6de84b
+            pretty_name: Add Comment to Message Center Case
+            options:
+              executor:
+                name: http_request_v_4_34_0
+                env:
+                  AUTHORIZATION: Bearer
+                  BODY: |-
+                    {
+                      "body": "{{ .COMMENT | jsonEscape }}",
+                      "case_id": "{{ .CASE_ID | jsonEscape }}",
+                      "type": "comment",
+                      "user_uuid": "{{ .USER_UUID | jsonEscape }}"
+                    }
+                  CONTENT_TYPE: application/json; charset=utf-8
+                  FAIL_ON_NON_SUCCESS_RESPONSE: "true"
+                  GO_TEMPLATE_BODY_PARSING: "true"
+                  HEADERS: '{{ .ADDITIONAL_HEADERS }}'
+                  METHOD: POST
+                  PARSE_HJSON: "true"
+                  REQUIRED_VARIABLES: '["ACCESS_TOKEN","CROWDSTRIKE_BASE_URL","COMMENT","CASE_ID","USER_UUID"]'
+                  RESPONSE_API_OBJECT_ONLY: "true"
+                  TOKEN: '{{ .ACCESS_TOKEN }}'
+                  URL: '{{ .CROWDSTRIKE_BASE_URL }}/message-center/entities/case-activity/v1'
+                sync: true
+                disable: false
+            documentationUrl: https://falcon.crowdstrike.com/documentation/page/e215c46b/message-center-apis
+            manifestId: 66dc515a-3139-8dbe-b8d6-faaa04aa3315
+            isPrivate: false
+            isPrivateUrl: true
+            mock_output:
+              enabled: false
+            skip: false
+            retry: {}
         uuid: f8831595-4879-4caf-9684-8fb665fbac8e
         pretty_name: Loop Alerts
     - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/create-session:5.11.1
@@ -81,6 +124,29 @@ playbook:
           sync: true
           disable: false
       manifestId: 44c4309d-caf0-862c-bf9e-dcc26fc7c309
+      isPrivate: false
+      isPrivateUrl: true
+      mock_output:
+        enabled: false
+      skip: false
+      retry: {}
+    - name: us-docker.pkg.dev/stackpulse/public/crowdstrike/add-alerts-as-evidence:1.8.0
+      id: add_alerts_as_evidence
+      env:
+        ALERTS: ""
+        CASE_ID: ""
+      envFrom:
+        integrationRef: ""
+      uuid: 247769c6-a5b3-41f7-b0fb-655a66fcae81
+      pretty_name: Add alerts as evidence
+      options:
+        executor:
+          name: ""
+          env: {}
+          sync: true
+          disable: false
+      documentationUrl: https://falcon.us-2.crowdstrike.com/documentation/page/cecfaa80/next-gen-siem-cases-apis#rb251673
+      manifestId: 7f7b8eed-43df-870c-b479-f9baf0c64c4b
       isPrivate: false
       isPrivateUrl: true
       mock_output:
